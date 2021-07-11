@@ -1,5 +1,5 @@
 # web-components
-Customizable, minimal pure web components from https://coolwebcomponents.blogspot.com/.
+Minimal pure web components from https://coolwebcomponents.blogspot.com/.
 
 # Important Notes!
 All of these web components were developed within [CodeTMP](https://github.com/tmpmachine/codetmp) and written in [Divless-HTML format](https://github.com/tmpmachine/divless-html). It will not be rendered in any browser without using CodeTMP!
