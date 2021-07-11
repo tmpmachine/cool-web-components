@@ -1,0 +1,98 @@
+<template id="pop-menu-element-v1">
+  
+  <style>
+    :host{padding:8px}
+    :host(:hover) {cursor:pointer}
+    :host(:hover) .li * {color:#3bff99}
+    :host{position: relative;display:inline-block;outline-color: #e91e63}
+    :host .uid-A{display: none}
+    :host(:active) .uid-A{display: block}
+    :host(:focus) .uid-A{display: block}
+    .uid-A > div {
+      box-shadow: 0px 1px 2px 2px #1d1d1dd1;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .uid-A {
+      position: absolute;
+      top: 45px;
+      background: white;
+      color: black;
+      left: 0;
+      width: 210px;
+      z-index: 1;
+    }
+    slot {
+      display: block;
+    }
+  </style>
+  
+    <div class="btn li">
+      [slot name="icon" {pos:relative;z:-1;d:block}
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
+      ]
+    </div>
+    <div class="uid-A">
+      <slot name="items"></slot>
+    </div>
+  
+</template>
+
+<script>
+  (function() {
+    let $ = (selector, node = document) => node.querySelectorAll(selector);
+    let version = 1;
+    class CustomElement extends HTMLElement {
+      constructor() {
+        super();
+        let templateId = `pop-menu-element-v${version}`;
+        /* production-script
+        let template = document.createElement('template');
+        template.setAttribute('id', templateId);
+        template.innerHTML = "@replaceWithTemplateHTML@";
+        document.querySelector('html').append(template);
+        // */
+        let content = $(`#${templateId}`)[0].content.cloneNode(true);
+        this.attachShadow({mode: 'open'}).append(content)
+      }
+    }
+    customElements.define(`pop-menu-v${version}`, CustomElement);
+  })();
+</script>
+
+
+<style>
+  .menu {
+      border: 1px solid;
+      border-radius: 5px;
+  }
+  .option-menu {
+    display: grid;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px;
+    grid-template-columns: auto 1fr;
+    flex-grow: 1 1;
+    font-family: sans-serif;
+  }
+  .option-menu:hover {
+      background: #e8e8e8;
+  }
+  .option-menu span {
+      padding: 4px;
+  }
+</style>
+
+[pop-menu-v1 tabindex="0"
+  [ .menu slot="items"
+    [ .option-menu
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="black"><path d="M0 0h24v24H0z" fill="none"/><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      [s "Option menu 1"]
+    ]
+    [ .option-menu
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="black"><path d="M0 0h24v24H0z" fill="none"/><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      [s "Option menu 2"]
+    ]
+  ]
+]
